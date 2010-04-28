@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "bitfield_list"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Enable model integer fields to act as bitfields}
+    gem.description = %Q{Enable model integer fields to act as bitfields}
     gem.email = "victor@metacnx.com"
     gem.homepage = "http://github.com/victorgrey/bitfield_list"
     gem.authors = ["Victor Grey"]
