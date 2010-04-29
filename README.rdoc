@@ -1,16 +1,55 @@
 = bitfield_list
 
-Description goes here.
+== Synopsis
+Use an ActiveRecord integer field as a bitfield, so that flags from a pre-defined list can be set, queried and unset.
+	
+Useful for example for an authorization field that defines varies capabilities. A 32-bit integer field can contain up to 31 flags, and only flags from the pre-defined list can be set or unset.
+	
+== Setup
+Assuming that you have an ActiveRecord model with an integer field named "authz",
+which should be defined with :default => 0, :null => false
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+	class Member < ActiveRecord::Base
+	  include BitfieldList
+	  bitfield :authz, %w{member_moderator content_moderator admin}
+	end
+
+== Usage
+Given 
+	member = Member.create
+	
+You can set the field to a single flag with =(String)
+	member.authz = "member_moderator"
+	
+Querying the field always returns an array
+	member.authz #=> ["member_moderator"]
+	
+Set the field to multiple flags with an array
+	member.authz = ["member_moderator", "content_moderator"]
+	
+Add flags to the field with fieldname_add, which takes a String or Array argument
+	member.authz_add "admin"
+	member.authz #=> ["member_moderator", "content_moderator", "admin"]
+	
+Remove flags from the field with fieldname_remove, which takes a String or Array argument
+	member.authz_remove ["member_moderator", "content_moderator"]
+	member.authz #=> ["admin"]
+	
+Query whether a given flag is set
+	member.authz_set? "admin" #=> true
+	member.authz_set? "content_moderator" #=> false
+
+Get a list of available flags for the field in question
+	member.authz_flaglist #=> ["member_moderator", "content_moderator", "admin"]
+
+== Install
+	git clone git://github.com/victorgrey/bitfield_list.git
+	cd bitfield_list
+	gem build bitfield_list.gemspec
+	(sudo) gem install bitfield_list-0.1.0.gem
+
+...or, in Rails 3 you can just add this to your Gemfile
+	gem 'bitfield_list', :git => 'git://github.com/victorgrey/bitfield_list.git'
 
 == Copyright
 

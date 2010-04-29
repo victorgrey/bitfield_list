@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Victor Grey"]
-  s.date = %q{2010-04-27}
+  s.date = %q{2010-04-29}
   s.description = %q{Enable model integer fields to act as bitfields}
   s.email = %q{victor@metacnx.com}
   s.extra_rdoc_files = [
@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "bitfield_list.gemspec",
      "lib/bitfield_list.rb",
      "spec/bitfield_list_spec.rb",
      "spec/spec.opts",
